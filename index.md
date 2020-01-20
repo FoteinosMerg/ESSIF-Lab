@@ -72,8 +72,19 @@ Contains two functional components, each one associated with a business
 specific policy. Both fall under the ESSIF-Lab architecture but not
 infrastructure.
 
-- __Transaction Validation Engine__ (__TVE__): [pg. 12, pg 15-18 (policy)]
-- __Transaction Result Dispatcher__ (__TRD__): [pg. 12, pg. 20]
+- __Transaction Validation Engine__ (__TVE__): Initiates and handles
+_between peer-agents_ requests for engaging in a transaction
+(through possibly multiple communication channels).
+This includes generating a transaction form with complete and valid
+data on behalf of the (owner of the) requester,
+that is necessary for the (owner of the) receptor to decide whether they
+want to involve. See *Verifier* and *Holder* in the *SSI Roles Layer*
+subsection for details.
+
+- __Transaction Result Dispatcher__ (__TRD__): Stores states of
+(possibly intermediary) transaction results through access to
+business data stores, which are to be subsequently dispatched ("issued") to
+interested parties. State supersession is to be handled by this component.
 
 
 ### ESSIF-Glue API Layer
@@ -82,14 +93,28 @@ infrastructure.
 
 ### SSI Roles Layer
 
-[Contains four functional components, each one associated with a specific policy]
-
 [Figure]
 
-- __Issuer__: [pg. 13, pg. 21]
-- __Wallet__: [pg. 13, pg. 22]
-- __Holder__: [pg. 13, pg. 19]
-- __Verifier__: [pg. 13, pg. 18]
+- __Issuer__: Generates *credentials* to a Holder, i.e., a set of interrelated
+statements accompanied by metadata and a digital proof of provenance and
+integrity. Revocation and suspension of credentials are to be
+handled by this component.
+- __Wallet__: Securely stores credentials and keys that can be used for signing
+on behalf of the wallet's owner. Most importantly, a wallet guarantees that its
+stored content becomes available to another component only if they share the
+same owner.
+- __Verifier__: Supports the TVE in its effort of credentials acquisition in
+the context of negotiating a transaction. From the crypto layer viewpoint, it
+verifies the digital proof included in a transaction request.
+More accurately, a Verifier
+ 1. prepares and sends a *presentation request* to a Holder asking for credentials
+on behalf of the latter's owner
+ 2. receives the Holder's *presentation*, i.e., response to the above request
+ 3. verifies attached signature and proofs, forwarding results to the TVE.
+- __Holder__: Handles presentation requests received from a Verifier, i.e.,
+invokes requested data from the owner's wallet and uses them to respond
+with a presentation.
+
 
 ### SSI Tech API Layer
 
@@ -97,12 +122,16 @@ infrastructure.
 
 ### SSI Protocols and Crypto Layer
 
-[...]
+The set of underlying crypto libraries used in the implementation of SSI roles
+(Issuer, Wallet, Verifier, Holder).
 
-* __Credential related technologies__: [pg. 14]
-* __Secure communication technologies__: [pg. 14]
-* __Crypto related technologies__: [pg. 14]
-* __Blockchain/Distributed ledger technologies__: [pg. 14]
+* __Credential related technologies__: e.g., X.509, OIDC, BlockCerts etc.
+* __Secure communication technologies__: Mechanisms for component
+identification and establishment of communication channels.
+* __Crypto related technologies__: Mechanisms for generating and verifying
+digital sigantures, zk-proofs etc.
+* __Blockchain/Distributed ledger technologies__: Public or private mechanisms
+for logging history in a variety of contexts.
 
 ## Initial SSI-agent network architecture
 
