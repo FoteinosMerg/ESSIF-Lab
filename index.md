@@ -1,10 +1,6 @@
 # ESSIF-Lab architecture
 
-[Intentionality]
-
 ## Intro
-
-[Explain SSIF-Lab difference between architecture and infrastructure]
 
 ### Notion of SSI-component
 
@@ -20,7 +16,7 @@ above-mentioned APIs (policy specification, transactions log etc.).
 It should be stressed that the SSI roles of *Issuer*, *Holder* and *Verifier*
 (see the *SSI Roles Layer* section below) fall under the SSI-interface.
 
-### Entities
+### Terminology
 
 - __party__: entity capable of decisions and being held accountable (person, organization)
 - __actor__: entity capable of performing formal actions (person, computer/robot)
@@ -30,7 +26,7 @@ It should be stressed that the SSI roles of *Issuer*, *Holder* and *Verifier*
 - __colleage__: agents acting _at some particular moment_ on behalf of the same party
 - __organization__: the composite entity of owner together with their agents _at some particular moment_
 
-### Transaction related attributes
+#### Transaction related attributes
 
 - __peer-party__ (of a specific party): self-evident meaning in the context of a specific bilateral transaction
 - __peer-agent__ (of a specific agent): self-evident meaning in the context of a specific bilateral transaction
@@ -89,7 +85,8 @@ interested parties. State supersession is to be handled by this component.
 
 ### ESSIF-Glue API Layer
 
-[pg. 15]
+Specifies calls from TVE, TRD to Issuer, Wallet, Verifier and Holder functions.
+Not yet standardized.
 
 ### SSI Roles Layer
 
@@ -118,12 +115,12 @@ with a presentation.
 
 ### SSI Tech API Layer
 
-[pg. 15]
+Specifies calls from Issuer, Wallet, Verifier and Holder to crypto modules.
+Its standardization is outside the scope of ESSIF-Lab.
 
 ### SSI Protocols and Crypto Layer
 
-The set of underlying crypto libraries used in the implementation of SSI roles
-(Issuer, Wallet, Verifier, Holder).
+The set of underlying crypto libraries used in the implementation of SSI roles.
 
 * __Credential related technologies__: e.g., X.509, OIDC, BlockCerts etc.
 * __Secure communication technologies__: Mechanisms for component
